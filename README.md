@@ -1,107 +1,92 @@
 # 🏆 Backend Rank JA
 
-Backend desarrollado para gestionar el **ranking por puntos del programa JA** de la iglesia, permitiendo administrar **grupos**, **personas**, **actividades** y **rankings** de manera automática mediante una **API REST**.
+Backend para gestionar el **ranking por puntos del programa JA** de la iglesia.  
+Permite administrar **grupos, personas, actividades y rankings** de forma automática mediante una **API REST**.
 
-Este backend está pensado para conectarse a un **frontend (por ejemplo en Vue 3)**.
+Este backend está diseñado para conectarse a un **frontend moderno** como **Vue 3** o **React**. 🚀
 
 ---
 
 ## 🚀 Tecnologías usadas
 
-- Node.js
-- Express
-- MongoDB
-- Mongoose
-- Cors
-- Dotenv
+- **Node.js** + **Express**
+- **MongoDB** con **Mongoose**
+- **CORS** para manejo de requests desde distintos orígenes
+- **dotenv** para variables de entorno
 
 ---
 
 ## 📂 Estructura del proyecto
 
-## 📂 Estructura del proyecto
-
+```bash
 src/
 │── app.js
 │── server.js
 │
 ├── config/
-│ └── db.js
+│   └── db.js
 │
 ├── controllers/
-│ ├── activity.controller.js
-│ ├── group.controller.js
-│ ├── person.controller.js
-│ └── ranking.controller.js
+│   ├── activity.controller.js
+│   ├── group.controller.js
+│   ├── person.controller.js
+│   └── ranking.controller.js
 │
 ├── models/
-│ ├── Activity.js
-│ ├── Group.js
-│ └── Person.js
+│   ├── Activity.js
+│   ├── Group.js
+│   └── Person.js
 │
 ├── routes/
-│ ├── activity.routes.js
-│ ├── group.routes.js
-│ ├── person.routes.js
-│ └── ranking.routes.js
+│   ├── activity.routes.js
+│   ├── group.routes.js
+│   ├── person.routes.js
+│   └── ranking.routes.js
 │
 └── .env.example
 
-
----
-
-## ⚙️ Configuración del entorno
-
-### 1️⃣ Clonar el repositorio
-```bash
+⚙️ Configuración del entorno
+1️⃣ Clonar el repositorio
 git clone https://github.com/Jheremy-Conca/Backend-Rank-JA.git
 cd Backend-Rank-JA
+
 2️⃣ Instalar dependencias
 npm install
+
 3️⃣ Configurar variables de entorno
 
 Crea un archivo .env en la raíz del proyecto:
+
 PORT=4000
 MONGO_URI=tu_uri_de_mongodb
 
-▶️ Ejecutar el servidor
-npm run dev
-o
-npm start
+4️⃣ Ejecutar el servidor
+npm run dev   # Desarrollo con nodemon
+npm start     # Producción
+
 
 📍 El servidor se ejecutará en:
-http://localhost:4000
+👉 http://localhost:4000
+
 🧠 Modelos principales
 👥 Person
-
-fullName
-
-type: MIEMBRO | VISITA
-
-points
-
-group
-
+Campo	Tipo	Descripción
+fullName	String	Nombre completo
+type	MIEMBRO | VISITA	Tipo de persona
+points	Number	Puntos acumulados
+group	ObjectId (Group)	Grupo al que pertenece
 🏘️ Group
-
-name: CHAIM | PABLO | EMMANUEL | SHALOM
-
-totalPoints
-
+Campo	Tipo	Descripción
+name	CHAIM | PABLO | EMMANUEL | SHALOM	Nombre del grupo
+totalPoints	Number	Total de puntos
 📝 Activity
-
-description
-
-points
-
-action: SUMA | RESTA
-
-person
-
-group
-
-date
-
+Campo	Tipo	Descripción
+description	String	Descripción de la actividad
+points	Number	Puntos asignados
+action	SUMA | RESTA	Tipo de acción
+person	ObjectId (Person)	Persona asociada
+group	ObjectId (Group)	Grupo asociado
+date	Date	Fecha de la actividad
 🔗 Endpoints de la API
 📌 Grupos
 
@@ -137,11 +122,38 @@ GET /api/ranking/groups → Ranking por grupos
 
 GET /api/ranking/persons → Ranking por personas
 
+💡 Ejemplos de Requests (Postman / CURL)
+➕ Crear grupo
+POST /api/groups
+Content-Type: application/json
+
+{
+  "name": "CHAIM"
+}
+
+➕ Agregar puntos a una persona
+POST /api/persons/641f1c2e5a8c2b0012345678/add-points
+Content-Type: application/json
+
+{
+  "points": 10
+}
+
+📊 Obtener ranking de grupos
+GET /api/ranking/groups
+
+🔗 Diagrama conceptual de modelos
+Diagrama
+classDiagram
+    Group "1" --> "*" Person : tiene
+    Person "1" --> "*" Activity : realiza
+    Group "1" --> "*" Activity : registra
+
 🔐 Seguridad
 
-Variables sensibles protegidas con .env
+Variables sensibles protegidas con dotenv
 
-Archivos ignorados con .gitignore:
+Archivos ignorados en .gitignore:
 
 node_modules
 
@@ -149,10 +161,19 @@ node_modules
 
 🎯 Objetivo del proyecto
 
-Automatizar el sistema de puntajes del programa JA, permitiendo llevar un control claro y ordenado de puntos por persona y grupo, así como visualizar rankings en tiempo real.
+Automatizar el sistema de puntajes del programa JA, permitiendo llevar un control claro y ordenado de:
+
+Puntos por persona
+
+Puntos por grupo
+
+Historial de actividades
+
+Rankings en tiempo real
 
 ✨ Autor
 
-👤 Jheremy Conca
+Jheremy Conca
 🎓 Estudiante de Computación e Informática
+
 📌 Proyecto con fines educativos y comunitarios
