@@ -45,6 +45,7 @@ src/
 │
 └── .env.example
 
+```bash
 ⚙️ Configuración del entorno
 1️⃣ Clonar el repositorio
 git clone https://github.com/Jheremy-Conca/Backend-Rank-JA.git
