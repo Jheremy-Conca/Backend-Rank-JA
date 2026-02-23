@@ -4,16 +4,28 @@ const groupSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      enum: ["CHAIM", "PABLO", "EMMANUEL", "SHALOM"],
-      unique: true,
       required: true,
+      unique: true,
+      trim: true,
+      minlength: 2,
     },
     totalPoints: {
       type: Number,
       default: 0,
+      min: 0,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true, // crea createdAt y updatedAt automáticamente
+  },
 );
 
-export default mongoose.model("Group", groupSchema);
+// Middleware para guardar el nombre en MAYÚSCULAS automáticamente
+groupSchema.pre("save", function (next) {
+  this.name = this.name.toUpperCase();
+  next();
+});
+
+const Group = mongoose.model("Group", groupSchema);
+
+export default Group;

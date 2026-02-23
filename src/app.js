@@ -8,13 +8,12 @@ import rankingRoutes from "./routes/ranking.routes.js";
 
 const app = express();
 
-// Permite recibir datos JSON
+// Middleware
 app.use(express.json());
 
-// CORS
 app.use(
   cors({
-    origin: "http://localhost:5173", // <--- Cambia al puerto de tu frontend Vue 3
+    origin: ["http://localhost:5173", "https://rankja2026.netlify.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
