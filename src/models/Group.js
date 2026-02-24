@@ -16,7 +16,7 @@ const groupSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // crea createdAt y updatedAt automáticamente
+    timestamps: true,
   },
 );
 
