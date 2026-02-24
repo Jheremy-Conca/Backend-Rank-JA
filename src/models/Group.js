@@ -20,10 +20,9 @@ const groupSchema = new mongoose.Schema(
   },
 );
 
-// Middleware para guardar el nombre en MAYÚSCULAS automáticamente
-groupSchema.pre("save", function (next) {
+// 🔹 Middleware síncrono para mayúsculas
+groupSchema.pre("save", function () {
   this.name = this.name.toUpperCase();
-  next();
 });
 
 const Group = mongoose.model("Group", groupSchema);
